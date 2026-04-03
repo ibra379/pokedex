@@ -21,8 +21,8 @@ export default function Index() {
   const colors = useThemeColors()
   const [search, setSearch] = useState("");
   const [filterKey, setFilterKey] = useState<'id' | 'name'>('id');
-  const { data, isFetching, fetchNextPage } = useInfiniteFetchQuery("pokemon?limit=21")
-  
+  const { data, isFetching, fetchNextPage } = useInfiniteFetchQuery("pokemon?limit=63")
+
   const pokemons = useMemo(() =>
     data?.pages.flatMap((page) =>
       page.results.map((p) => ({ ...p, id: getPokemonId(p.url) }))
