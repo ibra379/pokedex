@@ -1,6 +1,7 @@
 import { Card } from "@/components/Card";
 import { FilterButton } from "@/components/FilterButton";
 import { PokemonCard } from "@/components/pokemon/PokemonCard";
+import { RootView } from "@/components/RootView";
 import { Row } from "@/components/Row";
 import { SearchBar } from "@/components/SearchBar";
 import { ThemedText } from "@/components/ThemedText";
@@ -9,7 +10,6 @@ import { useInfiniteFetchQuery } from "@/hooks/useFetchQuery";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, FlatList, Image, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 type Pokemon = {
   id: number;
@@ -43,7 +43,7 @@ export default function Index() {
   ), []);
 
   return (
-    <SafeAreaView edges={["top"]} style={[styles.container, { backgroundColor: colors.tint }]}>
+    <RootView edges={["top"]}>
       <Row style={styles.header}>
         <Image width={24} height={24} source={require("@/assets/images/pokeball.png")} />
         <ThemedText variant="headline" color="grayLight">Pokedex</ThemedText>
@@ -69,14 +69,11 @@ export default function Index() {
           windowSize={5} // quante "schermate" di item tenere montate
         />
       </Card>
-    </SafeAreaView>
+    </RootView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   header: {
     gap: 16,
     paddingHorizontal: 12,

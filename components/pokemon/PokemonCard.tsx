@@ -14,7 +14,7 @@ export function PokemonCard({ style, id, name }: PokemonCardProps) {
     const colors = useThemeColors()
 
     return (
-        <Link href={{pathname: "/about", params: {}}} asChild>
+        <Link href={{pathname: "/pokemon/[id]", params: { id }}} asChild>
             <Pressable style={style}>
                 <Card style={[styles.card]}>
                     <ThemedText
@@ -25,7 +25,7 @@ export function PokemonCard({ style, id, name }: PokemonCardProps) {
                         #{id.toString().padStart(3, '0')}
                     </ThemedText>
                     <Image width={72} height={72} source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png` }} />
-                    <ThemedText>{name}</ThemedText>
+                    <ThemedText numberOfLines={1} style={styles.name}>{name}</ThemedText>
 
                     <View style={[styles.shadow, { backgroundColor: colors.grayBackground }]} />
                 </Card>
@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
     },
     id: {
         alignSelf: 'flex-end'
+    },
+    name: {
+        alignSelf: 'stretch',
+        textAlign: 'center',
     },
     shadow: {
         zIndex: -1,
