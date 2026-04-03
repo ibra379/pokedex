@@ -14,7 +14,6 @@ export function useFetchQuery<T extends keyof API>(path: T) {
   return useQuery({
     queryKey: [path],
     queryFn: async () => {
-      await wait(1);
       const response = await fetch(`${endpoint}/${path}`, {
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +29,6 @@ export function useInfiniteFetchQuery<T extends keyof API>(path: T) {
     queryKey: [path],
     initialPageParam: `${endpoint}/${path}`,
     queryFn: async ({ pageParam }) => {
-      await wait(1);
       const response = await fetch(pageParam, {
         headers: {
           "Content-Type": "application/json",

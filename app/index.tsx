@@ -14,17 +14,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
   const colors = useThemeColors()
   const [search, setSearch] = useState("");
-  const [filterKey, setFilterKey] = useState<'id' | 'name'>('name');
+  const [filterKey, setFilterKey] = useState<'id' | 'name'>('id');
   const { data, isFetching, fetchNextPage } = useInfiniteFetchQuery("pokemon?limit=21")
   const pokemons = data?.pages.flatMap((page) => page.results.map((p) => ({ ...p, id: getPokemonId(p.url) }))) ?? [];
   const filterPokemons = [...search ?
     pokemons.filter(
       (p) => p.name.includes(search.toLowerCase()) || p.id.toString() === search
     ) :
-    pokemons].sort((a, b) => (a[filterKey] > b[filterKey]) ? 1 : -1);
+    pokemons].sort((a, b) => (a[filterKey] > b[filterKey] ? 1 : -1));
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.tint }]}>
+    <SafeAreaView edges={["top"]} style={[styles.container, { backgroundColor: colors.tint }]}>
       <Row style={styles.header}>
         <Image width={24} height={24} source={require("@/assets/images/pokeball.png")} />
         <ThemedText variant="headline" color="grayLight">Pokedex</ThemedText>
@@ -42,7 +42,9 @@ export default function Index() {
           columnWrapperStyle={styles.gridGap}
           contentContainerStyle={[styles.gridGap, styles.list]}
           keyExtractor={(pokemon) => pokemon.id.toString()}
-          onEndReached={search ? undefined : () => fetchNextPage()}
+          onEndReached={search ? undefined : () => {
+            if (!isFetching && filterKey !== 'name') fetchNextPage()
+          }}
           ListFooterComponent={isFetching ? <ActivityIndicator color={colors.tint} /> : null}
           renderItem={({ item }) => (
             <PokemonCard id={item.id} name={item.name} style={{ flex: 1 / 3 }} />
@@ -56,7 +58,6 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 4
   },
   header: {
     gap: 16,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    marginTop: 16
+    marginTop: 16,
   },
   gridGap: {
     gap: 8

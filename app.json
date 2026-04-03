@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "titan",
-    "slug": "titan",
+    "name": "pokedex",
+    "slug": "pokedex",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "titan",
+    "icon": "./assets/images/pokeball.png",
+    "scheme": "pokedex",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
