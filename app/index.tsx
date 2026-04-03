@@ -7,21 +7,40 @@ import { ThemedText } from "@/components/ThemedText";
 import { getPokemonId } from "@/functions/pokemon";
 import { useInfiniteFetchQuery } from "@/hooks/useFetchQuery";
 import { useThemeColors } from "@/hooks/useThemeColors";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, FlatList, Image, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+type Pokemon = {
+  id: number;
+  name: string;
+  url: string;
+};
 
 export default function Index() {
   const colors = useThemeColors()
   const [search, setSearch] = useState("");
   const [filterKey, setFilterKey] = useState<'id' | 'name'>('id');
   const { data, isFetching, fetchNextPage } = useInfiniteFetchQuery("pokemon?limit=21")
-  const pokemons = data?.pages.flatMap((page) => page.results.map((p) => ({ ...p, id: getPokemonId(p.url) }))) ?? [];
-  const filterPokemons = [...search ?
-    pokemons.filter(
-      (p) => p.name.includes(search.toLowerCase()) || p.id.toString() === search
-    ) :
-    pokemons].sort((a, b) => (a[filterKey] > b[filterKey] ? 1 : -1));
+  
+  const pokemons = useMemo(() =>
+    data?.pages.flatMap((page) =>
+      page.results.map((p) => ({ ...p, id: getPokemonId(p.url) }))
+    ) ?? [],
+    [data]
+  );
+
+  const filterPokemons = useMemo(() =>
+    [...(search
+      ? pokemons.filter(p => p.name.includes(search.toLowerCase()) || p.id.toString() === search)
+      : pokemons
+    )].sort((a, b) => a[filterKey] > b[filterKey] ? 1 : -1),
+    [pokemons, search, filterKey]
+  );
+
+  const renderItem = useCallback(({ item }: { item: Pokemon }) => (
+    <PokemonCard id={item.id} name={item.name} style={{ flex: 1 / 3 }} />
+  ), []);
 
   return (
     <SafeAreaView edges={["top"]} style={[styles.container, { backgroundColor: colors.tint }]}>
@@ -42,13 +61,12 @@ export default function Index() {
           columnWrapperStyle={styles.gridGap}
           contentContainerStyle={[styles.gridGap, styles.list]}
           keyExtractor={(pokemon) => pokemon.id.toString()}
-          onEndReached={search ? undefined : () => {
-            if (!isFetching && filterKey !== 'name') fetchNextPage()
-          }}
+          onEndReached={search && filterKey !== 'name' ? undefined : () => fetchNextPage()}
           ListFooterComponent={isFetching ? <ActivityIndicator color={colors.tint} /> : null}
-          renderItem={({ item }) => (
-            <PokemonCard id={item.id} name={item.name} style={{ flex: 1 / 3 }} />
-          )}
+          renderItem={renderItem}
+          removeClippedSubviews={true}  // unmount items fuori schermo
+          maxToRenderPerBatch={9}        // multiplo di numColumns (3)
+          windowSize={5} // quante "schermate" di item tenere montate
         />
       </Card>
     </SafeAreaView>
@@ -61,7 +79,8 @@ const styles = StyleSheet.create({
   },
   header: {
     gap: 16,
-    padding: 12
+    paddingHorizontal: 12,
+    paddingBottom: 12
   },
   body: {
     flex: 1,
