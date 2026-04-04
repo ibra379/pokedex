@@ -80,6 +80,8 @@ const styles = StyleSheet.create({
     paddingBottom: 12
   },
   body: {
+    borderBottomEndRadius: 0,
+    borderBottomLeftRadius: 0,
     flex: 1,
     marginTop: 16,
   },
