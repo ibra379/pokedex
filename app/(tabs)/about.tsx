@@ -25,15 +25,8 @@ export default function About() {
       <View style={styles.center}>
       <Card style={styles.card}>
         <View style={styles.logoRow}>
-          <Image
-            source={require("@/assets/images/pokeball.png")}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <View style={styles.logoText}>
             <ThemedText variant="headline" color="grayDark">Pokédex</ThemedText>
             <ThemedText variant="subtitle2" color="grayMedium">A React Native app</ThemedText>
-          </View>
         </View>
 
         <ThemedText variant="subtitle1" color="grayDark" style={styles.sectionTitle}>
@@ -77,11 +70,10 @@ const styles = StyleSheet.create({
   header: {
     gap: 16,
     paddingHorizontal: 12,
-    paddingBottom: 12,
   },
   center: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "center"
   },
   card: {
     alignSelf: 'center',
@@ -90,22 +82,16 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   logoRow: {
-    flexDirection: "row",
+    justifyContent: 'center',
     alignItems: "center",
-    gap: 16,
-    marginBottom: 24,
-  },
-  logo: {
-    width: 64,
-    height: 64,
-  },
-  logoText: {
     gap: 4,
+    marginBottom: 24,
   },
   sectionTitle: {
     marginBottom: 8,
   },
   description: {
+    fontSize: 14,
     lineHeight: 20,
     marginBottom: 20,
   },
