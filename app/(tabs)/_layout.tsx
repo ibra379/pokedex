@@ -1,4 +1,5 @@
 import { useThemeColors } from "@/hooks/useThemeColors";
+import { useShadows } from "@/hooks/useShadows";
 import { Tabs } from "expo-router";
 import { Home, Info } from "lucide-react-native";
 import { Pressable } from "react-native";
@@ -26,6 +27,7 @@ function TabButton({ "aria-selected": focused, children, onPress, onLongPress, s
 
 export default function TabsLayout() {
   const colors = useThemeColors();
+  const shadows = useShadows();
 
   return (
     <Tabs
@@ -39,7 +41,6 @@ export default function TabsLayout() {
           justifyContent: 'center',
           backgroundColor: colors.grayWhite,
           borderTopWidth: 0,
-          elevation: 8,
           width: 'auto',
           height: 58,
           borderRadius: 58,
@@ -47,10 +48,7 @@ export default function TabsLayout() {
           paddingBottom: 0,
           marginBottom: 16,
           position: "absolute",
-          shadowColor: "#000",
-          shadowOffset: { width: 4, height: 4 },
-          shadowOpacity: 0.4,
-          shadowRadius: 8,
+          ...shadows.dp2,
         },
       }}
     >

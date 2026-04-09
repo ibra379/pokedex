@@ -6,6 +6,16 @@ export const Shadows = {
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
-    elevation: 2, // Android only
+    elevation: 2,
+  },
+} satisfies Record<string, ViewStyle>;
+
+export const ShadowsDark = {
+  dp2: {
+    shadowOpacity: 0.2,
+    shadowColor: "#cccccc7c",
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 3,
+    elevation: 2,
   },
 } satisfies Record<string, ViewStyle>;

@@ -1,4 +1,4 @@
-import { Shadows } from "@/constants/Shadows"
+import { useShadows } from "@/hooks/useShadows"
 import { useThemeColors } from "@/hooks/useThemeColors"
 import { ListFilterIcon } from "lucide-react-native"
 import { useRef, useState } from "react"
@@ -15,6 +15,7 @@ type FilterButtonProps = {
 
 export function FilterButton({ value, onChange }: FilterButtonProps) {
     const colors = useThemeColors()
+    const shadows = useShadows()
     const filterBtnRef = useRef<View>(null)
     const [modalVisible, setModalVisible] = useState(false)
     const [position, setPosition] = useState<null | { top: number, right: number }>(null)
@@ -51,7 +52,7 @@ export function FilterButton({ value, onChange }: FilterButtonProps) {
             onRequestClose={onClose}
         >
             <Pressable style={styles.modalOverlay} onPress={onClose} />
-            <View style={[styles.popup, { backgroundColor: colors.tint, ...position }]}>
+            <View style={[styles.popup, { backgroundColor: colors.tint, ...position, ...shadows.dp2 }]}>
                 <ThemedText style={styles.popupTitle} variant="subtitle2" color="grayWhite">
                     Sort by
                 </ThemedText>
@@ -91,7 +92,6 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         gap: 16,
         borderRadius: 12,
-        ...Shadows.dp2
     },
     popupTitle: {
         paddingLeft: 20,

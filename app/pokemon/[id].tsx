@@ -1,6 +1,7 @@
 import { RootView } from "@/components/RootView";
 import { ThemedText } from "@/components/ThemedText";
 import { useLocalSearchParams } from "expo-router";
+import { StyleSheet } from "react-native";
 
 export default function PokemonDetails() {
     const params = useLocalSearchParams()
@@ -11,3 +12,7 @@ export default function PokemonDetails() {
         </RootView>
     )
 }
+
+const styles = StyleSheet.create({
+    
+})
