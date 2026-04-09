@@ -22,46 +22,46 @@ export default function About() {
         <ThemedText variant="headline" color="grayLight">About</ThemedText>
       </Row>
 
-      <View style={styles.center}>
-      <Card style={styles.card}>
-        <View style={styles.logoRow}>
+      <RootView edges={["bottom"]} style={styles.center}>
+        <Card style={styles.card}>
+          <View style={styles.logoRow}>
             <ThemedText variant="headline" color="grayDark">Pokédex</ThemedText>
             <ThemedText variant="subtitle2" color="grayMedium">A React Native app</ThemedText>
-        </View>
+          </View>
 
-        <ThemedText variant="subtitle1" color="grayDark" style={styles.sectionTitle}>
-          Description
-        </ThemedText>
-        <ThemedText variant="body3" color="grayMedium" style={styles.description}>
-          Browse and search all Pokémon using data from the open PokéAPI.
-          Includes infinite scroll, filtering by name or ID, and a detail view
-          for each Pokémon.
-        </ThemedText>
-
-        <ThemedText variant="subtitle1" color="grayDark" style={styles.sectionTitle}>
-          Device
-        </ThemedText>
-        {DEVICE_INFO.map(({ label, value }) => (
-          <Row key={label} style={styles.stackRow}>
-            <ThemedText variant="subtitle2" color="grayDark" style={styles.stackLabel}>
-              {label}
-            </ThemedText>
-            <ThemedText variant="body3" color="grayMedium">{value}</ThemedText>
-          </Row>
-        ))}
-
-
-        <TouchableOpacity
-          style={styles.apiButton}
-          onPress={() => Linking.openURL("https://pokeapi.co")}
-          activeOpacity={0.7}
-        >
-          <ThemedText variant="subtitle2" color="grayWhite">
-            Open PokéAPI
+          <ThemedText variant="subtitle1" color="grayDark" style={styles.sectionTitle}>
+            Description
           </ThemedText>
-        </TouchableOpacity>
-      </Card>
-      </View>
+          <ThemedText variant="body3" color="grayMedium" style={styles.description}>
+            Browse and search all Pokémon using data from the open PokéAPI.
+            Includes infinite scroll, filtering by name or ID, and a detail view
+            for each Pokémon.
+          </ThemedText>
+
+          <ThemedText variant="subtitle1" color="grayDark" style={styles.sectionTitle}>
+            Device
+          </ThemedText>
+          {DEVICE_INFO.map(({ label, value }) => (
+            <Row key={label} style={styles.stackRow}>
+              <ThemedText variant="subtitle2" color="grayDark" style={styles.stackLabel}>
+                {label}
+              </ThemedText>
+              <ThemedText variant="body3" color="grayMedium">{value}</ThemedText>
+            </Row>
+          ))}
+
+
+          <TouchableOpacity
+            style={styles.apiButton}
+            onPress={() => Linking.openURL("https://pokeapi.co")}
+            activeOpacity={0.7}
+          >
+            <ThemedText variant="subtitle2" color="grayWhite">
+              Open PokéAPI
+            </ThemedText>
+          </TouchableOpacity>
+        </Card>
+      </RootView>
     </RootView>
   );
 }

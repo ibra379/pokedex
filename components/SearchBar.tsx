@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
         flex: 1,
         position: 'relative',
         gap: 12,
-        borderRadius: 16,
-        height: 32,
+        borderRadius: 22,
+        height: 38,
     },
     searchIcon: {
         position: 'absolute',

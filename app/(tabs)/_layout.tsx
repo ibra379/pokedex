@@ -1,6 +1,28 @@
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Tabs } from "expo-router";
 import { Home, Info } from "lucide-react-native";
+import { Pressable } from "react-native";
+
+function TabButton({ "aria-selected": focused, children, onPress, onLongPress, style }: any) {
+  return (
+    <Pressable
+      onPress={onPress}
+      onLongPress={onLongPress}
+      style={[
+        style,
+        {
+          borderRadius: focused ? 50 : 0,
+          margin: 8,
+          justifyContent: "center",
+          alignItems: "center",
+          height: 50
+        },
+      ]}
+    >
+      {children}
+    </Pressable>
+  );
+}
 
 export default function TabsLayout() {
   const colors = useThemeColors();
@@ -9,7 +31,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: true,
+        tabBarShowLabel: false,
         tabBarActiveTintColor: colors.tint,
         tabBarInactiveTintColor: colors.grayMedium,
         tabBarStyle: {
@@ -18,6 +40,7 @@ export default function TabsLayout() {
           backgroundColor: colors.grayWhite,
           borderTopWidth: 0,
           elevation: 8,
+          width: 'auto',
           height: 58,
           borderRadius: 58,
           marginHorizontal: 20,
@@ -36,6 +59,7 @@ export default function TabsLayout() {
         options={{
           title: "Pokédex",
           tabBarIcon: ({ color, size }) => <Home color={color} size={size} />,
+          tabBarButton: (props) => <TabButton {...props} />,
         }}
       />
       <Tabs.Screen
@@ -43,6 +67,7 @@ export default function TabsLayout() {
         options={{
           title: "About",
           tabBarIcon: ({ color, size }) => <Info color={color} size={size} />,
+          tabBarButton: (props) => <TabButton {...props} />,
         }}
       />
     </Tabs>

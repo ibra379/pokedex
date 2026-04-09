@@ -73,12 +73,12 @@ export function FilterButton({ value, onChange }: FilterButtonProps) {
 const styles = StyleSheet.create({
     filterButton: {
         flex: 0,
-        height: 32,
-        width: 32,
+        height: 38,
+        width: 38,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 8,
-        borderRadius: 32
+        borderRadius: 38
     },
     modalOverlay: {
         flex: 1,
