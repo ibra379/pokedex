@@ -1,3 +1,4 @@
+import { getPokemonArtwork } from "@/functions/pokemon";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Link } from "expo-router";
 import { Image, Pressable, StyleSheet, View, type ViewStyle } from "react-native";
@@ -24,7 +25,7 @@ export function PokemonCard({ style, id, name }: PokemonCardProps) {
                     >
                         #{id.toString().padStart(3, '0')}
                     </ThemedText>
-                    <Image width={72} height={72} source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png` }} />
+                    <Image width={72} height={72} source={{ uri: getPokemonArtwork(id) }} />
                     <ThemedText numberOfLines={1} style={styles.name}>{name}</ThemedText>
 
                     <View style={[styles.shadow, { backgroundColor: colors.grayBackground }]} />

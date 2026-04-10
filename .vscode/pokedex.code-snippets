@@ -1,0 +1,24 @@
+{
+  "React Native Component": {
+    "prefix": "rnsnipet",
+    "scope": "typescriptreact",
+    "body": [
+      "import { StyleSheet, View, ViewProps } from \"react-native\";",
+      "",
+      "type ${1:${TM_FILENAME_BASE}}Props = ViewProps",
+      "",
+      "",
+      "export function ${1:${TM_FILENAME_BASE}}({ style, ...rest }: ${1:${TM_FILENAME_BASE}}Props) {",
+      "    return (",
+      "        <View style={[styles.root, style]} {...rest}>",
+      "        </View>",
+      "    )",
+      "}",
+      "",
+      "const styles = StyleSheet.create({",
+      "    root: {}",
+      "})",
+    ],
+    "description": "React Native component",
+  },
+}
